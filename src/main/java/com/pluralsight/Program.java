@@ -15,6 +15,6 @@ Deli-cious Sandwiches  |  Crafted with Java — Capstone Edition
 """);
 
         UserInterface ui = new UserInterface();
-
+        ui.homeScreen();
     }
 }
