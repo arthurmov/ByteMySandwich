@@ -1,7 +1,5 @@
 package com.pluralsight;
 
-import java.util.Scanner;
-
 public class UserInterface {
 
     private static final Console console = new Console();
@@ -11,15 +9,15 @@ public class UserInterface {
         //loop to keep the menu running
         while (true) {
             String homeScreenPrompt = ColorCodes.RED + """
-==========================
-       Home Screen
-==========================
-""" + ColorCodes.RESET + """
-Please select an option:
-
- [1]  Start a New Order
- [0]  Exit the Application
-""";
+            --------------------------
+                   HOME SCREEN
+            --------------------------
+            """ + ColorCodes.RESET + """
+             [1]  Start a New Order
+             [0]  Exit the Application
+             
+            Please select an option: 
+            """;
             //handles user input
             int option = console.promptForInt(homeScreenPrompt);
 
@@ -41,19 +39,20 @@ Please select an option:
 
         while (true) {
             String orderScreenPrompt = ColorCodes.RED + """
-==========================
-        ORDER MENU
-==========================
-""" + ColorCodes.RESET + """
-Please build your order:
-
- [1]  Add Sandwich
- [2]  Add Drink
- [3]  Add Chips
- [4]  Proceed to Checkout
- [0]  Cancel Order (return to Home)
-
-""";
+            --------------------------
+                    ORDER MENU
+            --------------------------
+            """ + ColorCodes.RESET + """
+             Build your order
+            
+             [1]  Add Sandwich
+             [2]  Add Drink
+             [3]  Add Chips
+             [4]  Proceed to Checkout
+             [0]  Cancel Order (return to Home)
+            
+            Please select an option: 
+            """;
             //handles user input
             int option = console.promptForInt(orderScreenPrompt);
 
