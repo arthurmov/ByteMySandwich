@@ -1,4 +1,4 @@
 package com.pluralsight;
 
-public class Sauce {
+public class Sauce extends Topping {
 }
