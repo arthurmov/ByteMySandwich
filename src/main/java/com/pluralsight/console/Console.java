@@ -69,7 +69,21 @@ public class Console {
     public String promptForString(String prompt){
         System.out.print(prompt);
         return scanner.nextLine().trim();
-
-
     }
+
+    public boolean promptForBoolean(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (y/n): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("y") || input.equals("yes")) {
+                return true;
+            } else if (input.equals("n") || input.equals("no")) {
+                return false;
+            } else {
+                System.out.println(ColorCodes.RED + "Please enter 'y' or 'n'." + ColorCodes.RESET);
+            }
+        }
+    }
+
 }
