@@ -1,4 +1,7 @@
-package com.pluralsight;
+package com.pluralsight.main;
+
+import com.pluralsight.console.ColorCodes;
+import com.pluralsight.ui.UserInterface;
 
 public class Program {
     public static void main(String[] args) {

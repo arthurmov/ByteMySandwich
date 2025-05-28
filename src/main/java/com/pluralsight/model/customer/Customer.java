@@ -1,4 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.model.customer;
+
+import com.pluralsight.model.order.Order;
 
 import java.util.List;
 
@@ -28,6 +30,6 @@ public class Customer {
     }
 
     public void addOrder(Order order) {
-        
+
     }
 }
