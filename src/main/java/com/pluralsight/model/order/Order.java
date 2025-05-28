@@ -6,6 +6,7 @@ import com.pluralsight.model.customer.Customer;
 import com.pluralsight.model.food.Sandwich;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -15,11 +16,10 @@ public class Order {
     private LocalDateTime timestamp;
     private Customer customer;
 
-    public Order(List<Object> orderItems, double totalPrice, int orderNumber, LocalDateTime timestamp, Customer customer) {
-        this.orderItems = orderItems;
-        this.totalPrice = totalPrice;
-        this.orderNumber = orderNumber;
-        this.timestamp = timestamp;
+    public Order(Customer customer) {
+        this.orderItems = new ArrayList<>();
+        this.totalPrice = 0.0;
+        this.timestamp = LocalDateTime.now();
         this.customer = customer;
     }
 
@@ -75,7 +75,7 @@ public class Order {
 
     }
 
-    public void saveReceiptToFile() {
-        //needs to go in separate file manager class
+    public int getTotalCalories() {
+        return 0;
     }
 }

@@ -11,13 +11,13 @@ public class UserInterface {
 
         //loop to keep the menu running
         while (true) {
-            String homeScreenPrompt ="""
-             
+            String homeScreenPrompt = """
+            \s
              [1]  Start a New Order
              [0]  Exit the Application
-             
-            Please select an option: 
-            """;
+            \s
+            Please select an option:\s
+           \s""";
             //handles user input
             int option = console.promptForInt(homeScreenPrompt);
 
@@ -28,6 +28,7 @@ public class UserInterface {
                     orderScreen();
                     break;
                 case 0:
+                    System.out.println("Goodbye!");
                     return;
                 default:
                     System.out.println("Invalid command, please try again.");
@@ -44,15 +45,15 @@ public class UserInterface {
             --------------------------
             """ + ColorCodes.RESET + """
              Build your order
-            
+           \s
              [1]  Add Sandwich
              [2]  Add Drink
              [3]  Add Chips
              [4]  Proceed to Checkout
              [0]  Cancel Order (return to Home)
-            
-            Please select an option: 
-            """;
+           \s
+            Please select an option:\s
+           \s""";
             //handles user input
             int option = console.promptForInt(orderScreenPrompt);
 

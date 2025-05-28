@@ -1,8 +1,13 @@
 package com.pluralsight.model.food;
 
+import com.pluralsight.model.interfaces.Caloric;
+import com.pluralsight.model.interfaces.Flavored;
+import com.pluralsight.model.interfaces.MenuItem;
 import com.pluralsight.model.interfaces.Priceable;
 
-public class Drink implements Priceable {
+import java.util.List;
+
+public class Drink implements Priceable, Caloric, MenuItem, Flavored {
     private Drink size;
     private String flavor;
 
@@ -28,7 +33,32 @@ public class Drink implements Priceable {
     }
 
     @Override
+    public List<String> getAvailableFlavors() {
+        return List.of();
+    }
+
+    @Override
     public double getValue() {
         return 0;
+    }
+
+    @Override
+    public int getCalories() {
+        return 0;
+    }
+
+    @Override
+    public String getMenuName() {
+        return "";
+    }
+
+    @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
+    public String getMenuCategory() {
+        return "";
     }
 }

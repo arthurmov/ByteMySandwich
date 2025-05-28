@@ -1,27 +1,33 @@
 package com.pluralsight.model.food;
 
+import com.pluralsight.model.food.toppings.PremiumTopping;
+import com.pluralsight.model.interfaces.Caloric;
+import com.pluralsight.model.interfaces.MenuItem;
 import com.pluralsight.model.interfaces.Priceable;
 import com.pluralsight.model.food.components.*;
 import com.pluralsight.model.food.toppings.Topping;
+import com.pluralsight.model.interfaces.Sizeable;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Sandwich implements Priceable {
+public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     private Bread bread;
-    private Meat meat;
-    private Cheese cheese;
+    private List<PremiumTopping> meatsAndCheeses;
     private List<Topping> toppings;
     private Sauce sauce;
     private Size size;
+    private boolean isToasted;
 
-    public Sandwich(Bread bread, Meat meat, Cheese cheese, List<Topping> toppings, Sauce sauce, Size size) {
-        this.bread = bread;
-        this.meat = meat;
-        this.cheese = cheese;
-        this.toppings = toppings;
-        this.sauce = sauce;
-        this.size = size;
+    public Sandwich() {
+//        this.bread = new Bread;
+        this.meatsAndCheeses = new ArrayList<>();
+        this.toppings = new ArrayList<>();
+//        this.sauce = new Sauce;
+//        this.size = new Size;
+        this.isToasted = false;
     }
+
 
     public Bread getBread() {
         return bread;
@@ -31,20 +37,12 @@ public class Sandwich implements Priceable {
         this.bread = bread;
     }
 
-    public Meat getMeat() {
-        return meat;
+    public List<PremiumTopping> getMeatsAndCheeses() {
+        return meatsAndCheeses;
     }
 
-    public void setMeat(Meat meat) {
-        this.meat = meat;
-    }
-
-    public Cheese getCheese() {
-        return cheese;
-    }
-
-    public void setCheese(Cheese cheese) {
-        this.cheese = cheese;
+    public void setMeatsAndCheeses(List<PremiumTopping> meatsAndCheeses) {
+        this.meatsAndCheeses = meatsAndCheeses;
     }
 
     public List<Topping> getToppings() {
@@ -63,6 +61,13 @@ public class Sandwich implements Priceable {
         this.sauce = sauce;
     }
 
+    public boolean isToasted() {
+        return isToasted;
+    }
+
+    public void setToasted(boolean toasted) {
+        isToasted = toasted;
+    }
     public Size getSize() {
         return size;
     }
@@ -74,5 +79,25 @@ public class Sandwich implements Priceable {
     @Override
     public double getValue() {
         return 0;
+    }
+
+    @Override
+    public int getCalories() {
+        return 0;
+    }
+
+    @Override
+    public String getMenuName() {
+        return "";
+    }
+
+    @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
+    public String getMenuCategory() {
+        return "";
     }
 }
