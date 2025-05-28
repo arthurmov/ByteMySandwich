@@ -5,6 +5,7 @@ import com.pluralsight.model.interfaces.Flavored;
 import com.pluralsight.model.interfaces.MenuItem;
 import com.pluralsight.model.interfaces.Priceable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Chips implements Priceable, Caloric, MenuItem, Flavored {
@@ -24,31 +25,44 @@ public class Chips implements Priceable, Caloric, MenuItem, Flavored {
 
     @Override
     public List<String> getAvailableFlavors() {
-        return List.of();
+        return Arrays.asList("Original", "Barbecue", "Sour Cream & Onion", "Salt & Vinegar", "Jalapeño");
     }
 
     @Override
     public double getValue() {
-        return 0;
+        return 1.50;
     }
 
     @Override
     public int getCalories() {
-        return 0;
+        switch (flavor.toLowerCase()) {
+            case "original":
+                return 150;
+            case "barbecue":
+                return 160;
+            case "sour cream & onion":
+                return 170;
+            case "salt & vinegar":
+                return 155;
+            case "jalapeño":
+                return 165;
+            default:
+                return 0;
+        }
     }
 
     @Override
     public String getMenuName() {
-        return "";
+        return flavor + " Chips";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Crunchy " + flavor + " flavored chips.";
     }
 
     @Override
     public String getMenuCategory() {
-        return "";
+        return "Chips";
     }
 }

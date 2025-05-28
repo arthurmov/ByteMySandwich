@@ -4,23 +4,25 @@ import com.pluralsight.model.interfaces.Caloric;
 import com.pluralsight.model.interfaces.Flavored;
 import com.pluralsight.model.interfaces.MenuItem;
 import com.pluralsight.model.interfaces.Priceable;
+import com.pluralsight.model.food.components.Size;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Drink implements Priceable, Caloric, MenuItem, Flavored {
-    private Drink size;
+    private Size size;
     private String flavor;
 
-    public Drink(Drink size, String flavor) {
+    public Drink(Size size, String flavor) {
         this.size = size;
         this.flavor = flavor;
     }
 
-    public Drink getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(Drink size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
@@ -34,31 +36,44 @@ public class Drink implements Priceable, Caloric, MenuItem, Flavored {
 
     @Override
     public List<String> getAvailableFlavors() {
-        return List.of();
+        return Arrays.asList("Cola", "Lemon-Lime", "Root Beer", "Iced Tea", "Orange", "Water");
     }
 
     @Override
     public double getValue() {
-        return 0;
+        return 1.50 * size.getPriceMultiplier();
     }
 
     @Override
     public int getCalories() {
-        return 0;
+        // Basic example – you can customize per flavor later
+        switch (flavor.toLowerCase()) {
+            case "cola":
+            case "root beer":
+            case "orange":
+                return (int) (150 * size.getPriceMultiplier());
+            case "lemon-lime":
+            case "iced tea":
+                return (int) (120 * size.getPriceMultiplier());
+            case "water":
+                return 0;
+            default:
+                return 100;
+        }
     }
 
     @Override
     public String getMenuName() {
-        return "";
+        return " Drink";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "A refreshing " + flavor + " drink in size " + size.getName();
     }
 
     @Override
     public String getMenuCategory() {
-        return "";
+        return "Drink";
     }
 }

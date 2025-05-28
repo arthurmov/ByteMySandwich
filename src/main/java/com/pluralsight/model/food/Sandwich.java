@@ -78,26 +78,54 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
 
     @Override
     public double getValue() {
-        return 0;
+        double total = 0;
+        total += bread.getPrice();
+        total += size.getPriceMultiplier();
+
+        for (PremiumTopping pt : meatsAndCheeses) {
+            total += pt.getValue();
+        }
+        return total;
     }
 
     @Override
     public int getCalories() {
-        return 0;
+        int total = 0;
+        total += bread.getCalories();
+        total += sauce.getCalories();
+
+        for (PremiumTopping pt : meatsAndCheeses) {
+            total += pt.getCalories();
+        }
+
+        for (Topping t : toppings) {
+            total += t.getCalories();
+        }
+
+        return total;
     }
 
     @Override
     public String getMenuName() {
-        return "";
+        return "Custom Sandwich";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return size.getName() + " " + bread.getType() + " sandwich" +
+                (isToasted ? " (Toasted)" : "") +
+                " with " + meatsAndCheeses.size() + " meat/cheese items, " +
+                toppings.size() + " toppings, and " + sauce.getTypeOfSauce() + " sauce.";
     }
 
     @Override
     public String getMenuCategory() {
-        return "";
+        return "Sandwich";
+    }
+
+    @Override
+    public String toString() {
+        return getDescription() + " | $" + String.format("%.2f", getValue()) +
+                " | " + getCalories() + " cal";
     }
 }
