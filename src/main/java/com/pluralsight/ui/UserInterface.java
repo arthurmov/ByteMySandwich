@@ -11,11 +11,8 @@ public class UserInterface {
 
         //loop to keep the menu running
         while (true) {
-            String homeScreenPrompt = ColorCodes.RED + """
-            --------------------------
-                   HOME SCREEN
-            --------------------------
-            """ + ColorCodes.RESET + """
+            String homeScreenPrompt ="""
+             
              [1]  Start a New Order
              [0]  Exit the Application
              
