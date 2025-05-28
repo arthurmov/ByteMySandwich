@@ -1,7 +1,7 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.console.ColorCodes;
-import com.pluralsight.console.Console;
+import com.pluralsight.util.ColorCodes;
+import com.pluralsight.util.Console;
 
 public class UserInterface {
 

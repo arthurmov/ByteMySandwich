@@ -1,4 +1,4 @@
-package com.pluralsight.interfaces;
+package com.pluralsight.model.interfaces;
 
 import com.pluralsight.model.food.components.Size;
 

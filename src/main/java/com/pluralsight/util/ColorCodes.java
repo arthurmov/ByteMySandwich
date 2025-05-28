@@ -1,4 +1,4 @@
-package com.pluralsight.console;
+package com.pluralsight.util;
 
 public class ColorCodes {
 

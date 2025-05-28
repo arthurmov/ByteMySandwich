@@ -1,6 +1,6 @@
 package com.pluralsight.model.food;
 
-import com.pluralsight.interfaces.Priceable;
+import com.pluralsight.model.interfaces.Priceable;
 
 public class Drink implements Priceable {
     private Drink size;

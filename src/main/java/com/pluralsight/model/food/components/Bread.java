@@ -1,6 +1,6 @@
 package com.pluralsight.model.food.components;
 
-import com.pluralsight.interfaces.Priceable;
+import com.pluralsight.model.interfaces.Priceable;
 
 public class Bread implements Priceable {
     private String type;
