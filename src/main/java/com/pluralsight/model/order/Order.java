@@ -75,10 +75,6 @@ public class Order {
         return totalPrice;
     }
 
-    public void generateReceipt() {
-
-    }
-
     public int getTotalCalories() {
         int totalCalories = 0;
         for (Object item : orderItems) {

@@ -24,11 +24,63 @@ The project emphasizes **Object-Oriented Programming** (OOP) using inheritance, 
 
 ---
 
+### 🧩 UML Class Diagram
+
+---
+
 ### 📸 Screenshots
 
 ---
 
 ### 🧠 Interesting Piece of Code
+```java
+@Override
+public String getDescription() {
+    StringBuilder desc = new StringBuilder();
+
+    // Basic sandwich header
+    desc.append(size.getName()).append(" ")
+        .append(bread.getMenuName()).append(" sandwich");
+    desc.append(isToasted ? " (Toasted)" : " (Not Toasted)");
+
+    // Separate meats and cheeses
+    List<String> meats = new ArrayList<>();
+    List<String> cheeses = new ArrayList<>();
+
+    for (PremiumTopping pt : meatsAndCheeses) {
+        String name = pt.getName().toLowerCase();
+        if (Arrays.asList("steak", "ham", "salami", "roast beef", "chicken", "bacon").contains(name)) {
+            meats.add(pt.getMenuName());
+        } else {
+            cheeses.add(pt.getMenuName());
+        }
+    }
+
+    if (!meats.isEmpty()) desc.append(" | Meats: ").append(String.join(", ", meats));
+    if (!cheeses.isEmpty()) desc.append(" | Cheeses: ").append(String.join(", ", cheeses));
+
+    // Regular toppings
+    if (!toppings.isEmpty()) {
+        List<String> regulars = toppings.stream()
+                                        .map(Topping::getMenuName)
+                                        .toList();
+        desc.append(" | Toppings: ").append(String.join(", ", regulars));
+    }
+
+    if (sauce != null) {
+        desc.append(" | Sauce: ").append(sauce.getMenuName());
+    }
+
+    // Price and calorie count
+    desc.append(" | $").append(String.format("%.2f", getValue()));
+    desc.append(" | ").append(getCalories()).append(" cal");
+
+    return desc.toString();
+}
+
+```
+
+This **getDescription()** method is a great example of thoughtful, user-facing logic combined with clean, object-oriented design. It dynamically assembles a clear, readable summary of a sandwich based on the customer's selections, including bread type, size, toast preference, meats, cheeses, toppings, sauce, total price, and calories. The method smartly distinguishes between meats and cheeses by filtering premium toppings based on name, and uses modern Java techniques like StringBuilder, List<String>, and stream mapping for efficiency and clarity. It reflects the real-world needs of a deli-style point-of-sale system while keeping the code modular, readable, and easy to extend. This method is a perfect showcase of how backend data can be translated into a polished customer-facing experience.
 
 ---
 
