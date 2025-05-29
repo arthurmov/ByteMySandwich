@@ -10,6 +10,8 @@ import com.pluralsight.model.interfaces.Sizeable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     private Bread bread;
@@ -20,11 +22,8 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     private boolean isToasted;
 
     public Sandwich() {
-//        this.bread = new Bread;
         this.meatsAndCheeses = new ArrayList<>();
         this.toppings = new ArrayList<>();
-//        this.sauce = new Sauce;
-//        this.size = new Size;
         this.isToasted = false;
     }
 
@@ -78,17 +77,79 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
 
     @Override
     public double getValue() {
-        double total = 0;
+        double basePrice;
 
-        for (PremiumTopping pt : meatsAndCheeses) {
-            total += pt.getValue();
+        switch (size.getName()) {
+            case "4\"":
+                basePrice = 5.50;
+                break;
+            case "8\"":
+                basePrice = 7.00;
+                break;
+            case "12\"":
+                basePrice = 8.50;
+                break;
+            default:
+                basePrice = 0;
+                break;
         }
 
-        if (size != null)
-            total *= size.getPriceMultiplier();
+        List<PremiumTopping> meats = meatsAndCheeses.stream()
+                .filter(t -> t.getMenuCategory().equalsIgnoreCase("Meat"))
+                .toList();
 
-        return total;
+        List<PremiumTopping> cheeses = meatsAndCheeses.stream()
+                .filter(t -> t.getMenuCategory().equalsIgnoreCase("Cheese"))
+                .toList();
+
+        double meatCost = !meats.isEmpty() ? 1.00 + (meats.size() - 1) * getExtraMeatPrice(size.getName()) : 0;
+        double cheeseCost = !cheeses.isEmpty() ? 0.75 + (cheeses.size() - 1) * getExtraCheesePrice(size.getName()) : 0;
+
+        return basePrice + meatCost + cheeseCost;
     }
+
+    private double getExtraMeatPrice(String size) {
+        double price = 0.0;
+
+        switch (size) {
+            case "4\"":
+                price = 0.50;
+                break;
+            case "8\"":
+                price = 1.00;
+                break;
+            case "12\"":
+                price = 1.50;
+                break;
+            default:
+                price = 0.0;
+                break;
+        }
+
+        return price;
+    }
+
+    private double getExtraCheesePrice(String size) {
+        double price = 0.0;
+
+        switch (size) {
+            case "4\"":
+                price = 0.30;
+                break;
+            case "8\"":
+                price = 0.60;
+                break;
+            case "12\"":
+                price = 0.90;
+                break;
+            default:
+                price = 0.0;
+                break;
+        }
+
+        return price;
+    }
+
 
     @Override
     public int getCalories() {

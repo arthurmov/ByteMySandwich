@@ -4,6 +4,7 @@ import com.pluralsight.model.food.Chips;
 import com.pluralsight.model.food.Drink;
 import com.pluralsight.model.customer.Customer;
 import com.pluralsight.model.food.Sandwich;
+import com.pluralsight.model.interfaces.Caloric;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,19 +57,22 @@ public class Order {
     }
 
     public void addSandwich(Sandwich sandwich) {
-
+        orderItems.add(sandwich);
+        totalPrice += sandwich.getValue();
     }
 
     public void addDrink(Drink drink) {
-
+        orderItems.add(drink);
+        totalPrice += drink.getValue();
     }
 
     public void addChips(Chips chips) {
-
+        orderItems.add(chips);
+        totalPrice += chips.getValue();
     }
 
     public double calculateTotal() {
-        return 0;
+        return totalPrice;
     }
 
     public void generateReceipt() {
@@ -76,6 +80,12 @@ public class Order {
     }
 
     public int getTotalCalories() {
-        return 0;
+        int totalCalories = 0;
+        for (Object item : orderItems) {
+            if (item instanceof Caloric caloricItem) {
+                totalCalories += caloricItem.getCalories();
+            }
+        }
+        return totalCalories;
     }
 }

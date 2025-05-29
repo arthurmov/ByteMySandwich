@@ -173,7 +173,8 @@ public class UserInterface {
         int sauceIndex;
         while (true) {
             sauceIndex = console.promptForInt("Choose a sauce (1-" + sauces.size() + "): ") - 1;
-            if (sauceIndex >= 0 && sauceIndex < sauces.size()) break;
+            if (sauceIndex >= 0 && sauceIndex < sauces.size())
+                break;
             System.out.println("Invalid choice, try again.");
         }
         Sauce selectedSauce = sauces.get(sauceIndex);
@@ -250,8 +251,6 @@ public class UserInterface {
             homeScreen();
         }
     }
-
-
 }
 
 
