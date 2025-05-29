@@ -1,12 +1,8 @@
 package com.pluralsight.model.food;
 
-import com.pluralsight.model.food.toppings.PremiumTopping;
-import com.pluralsight.model.interfaces.Caloric;
-import com.pluralsight.model.interfaces.MenuItem;
-import com.pluralsight.model.interfaces.Priceable;
+import com.pluralsight.model.food.toppings.*;
+import com.pluralsight.model.interfaces.*;
 import com.pluralsight.model.food.components.*;
-import com.pluralsight.model.food.toppings.Topping;
-import com.pluralsight.model.interfaces.Sizeable;
 
 import java.util.ArrayList;
 import java.util.Arrays;

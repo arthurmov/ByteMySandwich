@@ -8,6 +8,7 @@ import com.pluralsight.model.food.toppings.RegularTopping;
 import com.pluralsight.model.food.toppings.Topping;
 import com.pluralsight.model.order.Order;
 import com.pluralsight.util.*;
+import com.pluralsight.model.food.signature.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,106 +99,133 @@ public class UserInterface {
     private void addSandwichScreen() {
         System.out.println("Let's build your sandwich!");
 
-        //select bread
-        System.out.println("Select bread:");
-        List<Bread> breads = Bread.getAvailableBreads();
-        for (int i = 0; i < breads.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + breads.get(i).getMenuName());
-        }
-        int breadIndex = console.promptForInt("Enter choice: ") - 1;
-        Bread selectedBread = breads.get(breadIndex);
+        int customOrSignature = console.promptForInt("""
+                [1] Custom Sandwich
+                [2] Signature Sandwich
+                """);
 
-        //select size
-        List<Size> sizes = Size.getSandwichSizes();
-        for (int i = 0; i < sizes.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + sizes.get(i).getName());
-        }
-        int sizeIndex = console.promptForInt("Select sandwich size: ") - 1;
-        if (sizeIndex < 0 || sizeIndex >= sizes.size()) {
-            System.out.println("Invalid selection. Returning to previous menu.");
-            return;
-        }
-        Size selectedSize = sizes.get(sizeIndex);
+        if(customOrSignature == 1) {
 
-        System.out.println("Select premium toppings (Meats & Cheeses). These cost extra. Enter 0 to finish:");
+            //select bread
+            System.out.println("Select bread:");
+            List<Bread> breads = Bread.getAvailableBreads();
+            for (int i = 0; i < breads.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + breads.get(i).getMenuName());
+            }
+            int breadIndex = console.promptForInt("Enter choice: ") - 1;
+            Bread selectedBread = breads.get(breadIndex);
 
-        List<PremiumTopping> premiumToppings = PremiumTopping.getPremiumToppings();
-        List<PremiumTopping> selectedPremium = new ArrayList<>();
+            //select size
+            List<Size> sizes = Size.getSandwichSizes();
+            for (int i = 0; i < sizes.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + sizes.get(i).getName());
+            }
+            int sizeIndex = console.promptForInt("Select sandwich size: ") - 1;
+            if (sizeIndex < 0 || sizeIndex >= sizes.size()) {
+                System.out.println("Invalid selection. Returning to previous menu.");
+                return;
+            }
+            Size selectedSize = sizes.get(sizeIndex);
 
-        //add premium options
-        for (int i = 0; i < premiumToppings.size(); i++) {
-            String name = premiumToppings.get(i).getName().toLowerCase();
-            String type;
+            System.out.println("Select premium toppings (Meats & Cheeses). These cost extra. Enter 0 to finish:");
 
-            if (name.equals("steak") || name.equals("ham") || name.equals("salami") ||
-                    name.equals("roast beef") || name.equals("chicken") || name.equals("bacon")) {
-                type = "Meat";
-            } else if (name.equals("american") || name.equals("provolone") ||
-                    name.equals("cheddar") || name.equals("swiss")) {
-                type = "Cheese";
-            } else {
-                continue; //skip anything not meat or cheese
+            List<PremiumTopping> premiumToppings = PremiumTopping.getPremiumToppings();
+            List<PremiumTopping> selectedPremium = new ArrayList<>();
+
+            //add premium options
+            for (int i = 0; i < premiumToppings.size(); i++) {
+                String name = premiumToppings.get(i).getName().toLowerCase();
+                String type;
+
+                if (name.equals("steak") || name.equals("ham") || name.equals("salami") ||
+                        name.equals("roast beef") || name.equals("chicken") || name.equals("bacon")) {
+                    type = "Meat";
+                } else if (name.equals("american") || name.equals("provolone") ||
+                        name.equals("cheddar") || name.equals("swiss")) {
+                    type = "Cheese";
+                } else {
+                    continue; //skip anything not meat or cheese
+                }
+
+                System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName() + " (" + type + ")");
             }
 
-            System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName() + " (" + type + ")");
-        }
+            while (true) {
+                int input = console.promptForInt("Choose a premium topping (0 to finish): ");
+                if (input == 0) break;
+                if (input >= 1 && input <= premiumToppings.size()) {
+                    PremiumTopping chosen = premiumToppings.get(input - 1);
+                    selectedPremium.add(chosen);
+                    System.out.println("Added: " + chosen.getMenuName());
+                } else {
+                    System.out.println("Invalid selection. Try again.");
+                }
+            }
 
-        while (true) {
-            int input = console.promptForInt("Choose a premium topping (0 to finish): ");
-            if (input == 0) break;
-            if (input >= 1 && input <= premiumToppings.size()) {
-                PremiumTopping chosen = premiumToppings.get(input - 1);
-                selectedPremium.add(chosen);
-                System.out.println("Added: " + chosen.getMenuName());
-            } else {
-                System.out.println("Invalid selection. Try again.");
+            //add regular toppings
+            List<RegularTopping> regularToppings = RegularTopping.getRegularToppings();
+            List<RegularTopping> selectedRegular = new ArrayList<>();
+            System.out.println("Select regular toppings (0 to finish):");
+            while (true) {
+                for (int i = 0; i < regularToppings.size(); i++) {
+                    System.out.println("[" + (i + 1) + "] " + regularToppings.get(i).getMenuName());
+                }
+                int input = console.promptForInt("Choose topping: ");
+                if (input == 0)
+                    break;
+                selectedRegular.add(regularToppings.get(input - 1));
+            }
+
+            //choose sauce
+            List<Sauce> sauces = Sauce.getSauces();
+            for (int i = 0; i < sauces.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + sauces.get(i).getMenuName());
+            }
+            int sauceIndex;
+            while (true) {
+                sauceIndex = console.promptForInt("Choose a sauce (1-" + sauces.size() + "): ") - 1;
+                if (sauceIndex >= 0 && sauceIndex < sauces.size())
+                    break;
+                System.out.println("Invalid choice, try again.");
+            }
+            Sauce selectedSauce = sauces.get(sauceIndex);
+
+            //toasted
+            boolean toasted = console.promptForInt("Toasted? [1] Yes [2] No: ") == 1;
+
+            //create and save sandwich
+            Sandwich sandwich = new Sandwich();
+            sandwich.setSize(selectedSize);
+            sandwich.setToasted(toasted);
+            sandwich.setBread(selectedBread);
+            sandwich.setSauce(selectedSauce);
+            sandwich.setMeatsAndCheeses(selectedPremium);
+            sandwich.setToppings(new ArrayList<Topping>(selectedRegular));
+
+            //add to current order
+            currentOrder.addSandwich(sandwich);
+
+            System.out.println("Sandwich added to your order.\n");
+        } else {
+            int signatureSandwichType = console.promptForInt("""
+                    [1] BLT
+                    [2] Philly Cheesesteak
+                    """);
+
+            switch (signatureSandwichType) {
+                case 1:
+                    currentOrder.addSandwich(new BLT());
+                    System.out.println("Sandwich added to your order.\n");
+                    break;
+                case 2:
+                    currentOrder.addSandwich(new PhillyCheeseSteak());
+                    System.out.println("Sandwich added to your order.\n");
+                    break;
+                default:
+                    System.out.println("Invalid option, please try again.");
+                    break;
             }
         }
-
-        //add regular toppings
-        List<RegularTopping> regularToppings = RegularTopping.getRegularToppings();
-        List<RegularTopping> selectedRegular = new ArrayList<>();
-        System.out.println("Select regular toppings (0 to finish):");
-        while (true) {
-            for (int i = 0; i < regularToppings.size(); i++) {
-                System.out.println("[" + (i + 1) + "] " + regularToppings.get(i).getMenuName());
-            }
-            int input = console.promptForInt("Choose topping: ");
-            if (input == 0)
-                break;
-            selectedRegular.add(regularToppings.get(input - 1));
-        }
-
-        //choose sauce
-        List<Sauce> sauces = Sauce.getSauces();
-        for (int i = 0; i < sauces.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + sauces.get(i).getMenuName());
-        }
-        int sauceIndex;
-        while (true) {
-            sauceIndex = console.promptForInt("Choose a sauce (1-" + sauces.size() + "): ") - 1;
-            if (sauceIndex >= 0 && sauceIndex < sauces.size())
-                break;
-            System.out.println("Invalid choice, try again.");
-        }
-        Sauce selectedSauce = sauces.get(sauceIndex);
-
-        //toasted
-        boolean toasted = console.promptForInt("Toasted? [1] Yes [2] No: ") == 1;
-
-        //create and save sandwich
-        Sandwich sandwich = new Sandwich();
-        sandwich.setSize(selectedSize);
-        sandwich.setToasted(toasted);
-        sandwich.setBread(selectedBread);
-        sandwich.setSauce(selectedSauce);
-        sandwich.setMeatsAndCheeses(selectedPremium);
-        sandwich.setToppings(new ArrayList<Topping>(selectedRegular));
-
-        //add to current order
-        currentOrder.addSandwich(sandwich);
-
-        System.out.println("Sandwich added to your order.\n");
     }
 
     private void addDrinkScreen() {
