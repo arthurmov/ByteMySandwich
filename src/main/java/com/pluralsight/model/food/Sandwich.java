@@ -9,8 +9,8 @@ import com.pluralsight.model.food.toppings.Topping;
 import com.pluralsight.model.interfaces.Sizeable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     private Bread bread;
@@ -75,39 +75,70 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
 
     @Override
     public double getValue() {
-        double basePrice;
-
+        double total;
         switch (size.getName()) {
-            case "4\"": basePrice = 5.50; break;
-            case "8\"": basePrice = 7.00; break;
-            case "12\"": basePrice = 8.50; break;
-            default: basePrice = 0.0; break;
+            case "4\"":
+                total = 5.50;
+                break;
+            case "8\"":
+                total = 7.00;
+                break;
+            case "12\"":
+                total = 8.50;
+                break;
+            default:
+                total = 5.50;
+                break;
         }
 
-        int meatCount = (int) meatsAndCheeses.stream()
-                .filter(m -> m.getMenuCategory().equalsIgnoreCase("Meat")).count();
+        String sizeLabel = size.getName();
 
-        int cheeseCount = (int) meatsAndCheeses.stream()
-                .filter(m -> m.getMenuCategory().equalsIgnoreCase("Cheese")).count();
+        int meatCount = 0;
+        int cheeseCount = 0;
 
-        double meatCost = 0;
-        double cheeseCost = 0;
+        for (PremiumTopping pt : meatsAndCheeses) {
+            String name = pt.getName().toLowerCase();
+            if (Arrays.asList("steak", "ham", "salami", "roast beef", "chicken", "bacon").contains(name)) {
+                meatCount++;
+            } else {
+                cheeseCount++;
+            }
+        }
 
         if (meatCount > 0) {
-            meatCost += 1.00 + (meatCount - 1) * getExtraMeatPrice(size.getName());
+            total += getFirstMeatPrice(sizeLabel);
+            total += (meatCount - 1) * getExtraMeatPrice(sizeLabel);
         }
 
         if (cheeseCount > 0) {
-            cheeseCost += 0.75 + (cheeseCount - 1) * getExtraCheesePrice(size.getName());
+            total += getFirstCheesePrice(sizeLabel);
+            total += (cheeseCount - 1) * getExtraCheesePrice(sizeLabel);
         }
 
-        return basePrice + meatCost + cheeseCost;
+        return total;
     }
 
+    private double getFirstMeatPrice(String size) {
+        double price;
+        switch (size) {
+            case "4\"":
+                price = 1.00;
+                break;
+            case "8\"":
+                price = 2.00;
+                break;
+            case "12\"":
+                price = 3.00;
+                break;
+            default:
+                price = 0.0;
+                break;
+        }
+        return price;
+    }
 
     private double getExtraMeatPrice(String size) {
-        double price = 0.0;
-
+        double price;
         switch (size) {
             case "4\"":
                 price = 0.50;
@@ -122,13 +153,30 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
                 price = 0.0;
                 break;
         }
+        return price;
+    }
 
+    private double getFirstCheesePrice(String size) {
+        double price;
+        switch (size) {
+            case "4\"":
+                price = 0.75;
+                break;
+            case "8\"":
+                price = 1.50;
+                break;
+            case "12\"":
+                price = 2.25;
+                break;
+            default:
+                price = 0.0;
+                break;
+        }
         return price;
     }
 
     private double getExtraCheesePrice(String size) {
-        double price = 0.0;
-
+        double price;
         switch (size) {
             case "4\"":
                 price = 0.30;
@@ -143,9 +191,9 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
                 price = 0.0;
                 break;
         }
-
         return price;
     }
+
 
     @Override
     public int getCalories() {
@@ -173,32 +221,39 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     public String getDescription() {
         StringBuilder desc = new StringBuilder();
 
-        desc.append("- ").append(size.getName()).append(" ").append(bread.getMenuName()).append(" sandwich");
+        desc.append(size.getName()).append(" ")
+                .append(bread.getMenuName()).append(" sandwich");
         desc.append(isToasted ? " (Toasted)" : " (Not Toasted)");
 
         List<String> meats = new ArrayList<>();
         List<String> cheeses = new ArrayList<>();
+
         for (PremiumTopping pt : meatsAndCheeses) {
-            if (pt.getMenuCategory().equalsIgnoreCase("Meat")) meats.add(pt.getMenuName());
-            else if (pt.getMenuCategory().equalsIgnoreCase("Cheese")) cheeses.add(pt.getMenuName());
+            String name = pt.getName().toLowerCase();
+            if (Arrays.asList("steak", "ham", "salami", "roast beef", "chicken", "bacon").contains(name)) {
+                meats.add(pt.getMenuName());
+            } else {
+                cheeses.add(pt.getMenuName());
+            }
         }
 
         if (!meats.isEmpty()) desc.append(" | Meats: ").append(String.join(", ", meats));
         if (!cheeses.isEmpty()) desc.append(" | Cheeses: ").append(String.join(", ", cheeses));
 
         if (!toppings.isEmpty()) {
-            desc.append(" | Toppings: ");
-            desc.append(toppings.stream()
-                    .map(MenuItem::getMenuName)
-                    .collect(Collectors.joining(", ")));
+            List<String> regulars = toppings.stream().map(Topping::getMenuName).toList();
+            desc.append(" | Toppings: ").append(String.join(", ", regulars));
         }
 
-        if (sauce != null) desc.append(" | Sauce: ").append(sauce.getMenuName());
+        if (sauce != null) {
+            desc.append(" | Sauce: ").append(sauce.getMenuName());
+        }
 
-        desc.append(String.format(" | $%.2f | %d cal", getValue(), getCalories()));
+        desc.append(" | $").append(String.format("%.2f", getValue()));
+        desc.append(" | ").append(getCalories()).append(" cal");
+
         return desc.toString();
     }
-
 
     @Override
     public String getMenuCategory() {
@@ -207,7 +262,6 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
 
     @Override
     public String toString() {
-        return getDescription() + " | $" + String.format("%.2f", getValue()) +
-                " | " + getCalories() + " cal";
+        return getDescription();
     }
 }

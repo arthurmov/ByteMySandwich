@@ -119,38 +119,40 @@ public class UserInterface {
         }
         Size selectedSize = sizes.get(sizeIndex);
 
-        //add premium toppings
+        System.out.println("Select premium toppings (Meats & Cheeses). These cost extra. Enter 0 to finish:");
+
         List<PremiumTopping> premiumToppings = PremiumTopping.getPremiumToppings();
         List<PremiumTopping> selectedPremium = new ArrayList<>();
 
-        System.out.println("Select meats (0 to finish):");
-        while (true) {
-            for (int i = 0; i < premiumToppings.size(); i++) {
-                String name = premiumToppings.get(i).getName().toLowerCase();
-                if (name.equals("steak") || name.equals("ham") || name.equals("salami") ||
-                        name.equals("roast beef") || name.equals("chicken") || name.equals("bacon")) {
-                    System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName());
-                }
+        //add premium options
+        for (int i = 0; i < premiumToppings.size(); i++) {
+            String name = premiumToppings.get(i).getName().toLowerCase();
+            String type;
+
+            if (name.equals("steak") || name.equals("ham") || name.equals("salami") ||
+                    name.equals("roast beef") || name.equals("chicken") || name.equals("bacon")) {
+                type = "Meat";
+            } else if (name.equals("american") || name.equals("provolone") ||
+                    name.equals("cheddar") || name.equals("swiss")) {
+                type = "Cheese";
+            } else {
+                continue; //skip anything not meat or cheese
             }
-            int input = console.promptForInt("Choose a meat: ");
-            if (input == 0) break;
-            selectedPremium.add(premiumToppings.get(input - 1));
+
+            System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName() + " (" + type + ")");
         }
 
-        System.out.println("Select cheeses (0 to finish):");
         while (true) {
-            for (int i = 0; i < premiumToppings.size(); i++) {
-                String name = premiumToppings.get(i).getName().toLowerCase();
-                if (name.equals("american") || name.equals("provolone") ||
-                        name.equals("cheddar") || name.equals("swiss")) {
-                    System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName());
-                }
-            }
-            int input = console.promptForInt("Choose a cheese: ");
+            int input = console.promptForInt("Choose a premium topping (0 to finish): ");
             if (input == 0) break;
-            selectedPremium.add(premiumToppings.get(input - 1));
+            if (input >= 1 && input <= premiumToppings.size()) {
+                PremiumTopping chosen = premiumToppings.get(input - 1);
+                selectedPremium.add(chosen);
+                System.out.println("Added: " + chosen.getMenuName());
+            } else {
+                System.out.println("Invalid selection. Try again.");
+            }
         }
-
 
         //add regular toppings
         List<RegularTopping> regularToppings = RegularTopping.getRegularToppings();

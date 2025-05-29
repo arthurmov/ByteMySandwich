@@ -18,7 +18,7 @@ public class Order {
 
     public Order(Customer customer) {
         this.orderItems = new ArrayList<>();
-        this.totalPrice = 0.0;
+        this.totalPrice = 0.00;
         LocalDateTime timestamp = LocalDateTime.now();
         this.customer = customer;
         this.orderNumber = getOrderNumber();
