@@ -118,8 +118,7 @@ public class UserInterface {
             return;
         }
         Size selectedSize = sizes.get(sizeIndex);
-
-
+        
         //add premium toppings
         List<PremiumTopping> premiumToppings = PremiumTopping.getPremiumToppings();
         List<PremiumTopping> selectedPremium = new ArrayList<>();
@@ -172,13 +171,27 @@ public class UserInterface {
         System.out.println("Sandwich added to your order.\n");
     }
 
-
     private void addDrinkScreen() {
-        // to do... user confirmation
+        System.out.println("Select your drink size:");
+        List<Size> sizes = Size.getStandardSizes();
+        for (int i = 0; i < sizes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + sizes.get(i).getName());
+        }
+        int sizeIndex = console.promptForInt("Choice: ") - 1;
+        Size size = sizes.get(sizeIndex);
 
-        // to do... select size
+        System.out.println("Available Flavors:");
+        List<String> flavors = new Drink(null, "").getAvailableFlavors();
+        for (int i = 0; i < flavors.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + flavors.get(i));
+        }
+        int flavorIndex = console.promptForInt("Choose a flavor: ") - 1;
+        String flavor = flavors.get(flavorIndex);
 
-        // to do... select flavor
+        Drink drink = new Drink(size, flavor);
+        currentOrder.addDrink(drink);
+
+        System.out.println("Drink added to your order.\n");
     }
 
     private void addChipsScreen() {

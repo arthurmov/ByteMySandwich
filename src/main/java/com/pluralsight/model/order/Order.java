@@ -13,14 +13,14 @@ public class Order {
     private List<Object> orderItems;
     private double totalPrice;
     private int orderNumber;
-    private LocalDateTime timestamp;
     private Customer customer;
 
     public Order(Customer customer) {
         this.orderItems = new ArrayList<>();
         this.totalPrice = 0.0;
-        this.timestamp = LocalDateTime.now();
+        LocalDateTime timestamp = LocalDateTime.now();
         this.customer = customer;
+        this.orderNumber = getOrderNumber();
     }
 
     public List<Object> getOrderItems() {
