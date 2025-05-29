@@ -14,6 +14,7 @@ public class Order {
     private List<Object> orderItems;
     private double totalPrice;
     private int orderNumber;
+    private static int lastOrderNumber = 1000;
     private Customer customer;
 
     public Order(Customer customer) {
@@ -21,7 +22,7 @@ public class Order {
         this.totalPrice = 0.00;
         LocalDateTime timestamp = LocalDateTime.now();
         this.customer = customer;
-        this.orderNumber = getOrderNumber();
+        this.orderNumber = generateOrderNumber();
     }
 
     public List<Object> getOrderItems() {
@@ -40,8 +41,8 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
+    public int generateOrderNumber() {
+        return ++lastOrderNumber;
     }
 
     public LocalDateTime getTimestamp() {

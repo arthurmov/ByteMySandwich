@@ -1,0 +1,15 @@
+======= Byte My Sandwich =======
+Customer: Christian
+Order #: 1003
+Date: 2025-05-29 19:27:44
+================================
+- 8" White Bread sandwich (Toasted) | Meats: Bacon | Cheeses: Cheddar | Toppings: Lettuce, Tomato | Sauce: Ranch | $10.50 | 322 cal
+  $10.50 | 322 cal
+- A refreshing Lemon-Lime drink in size Large
+  $3.00 | 165 cal
+- Crunchy Sour Cream & Onion flavored chips.
+  $1.50 | 170 cal
+================================
+Total: $15.00
+Total Calories: 657 cal
+Thank you for dining with us!

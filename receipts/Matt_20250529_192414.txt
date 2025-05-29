@@ -1,0 +1,15 @@
+======= Byte My Sandwich =======
+Customer: Matt
+Order #: 1003
+Date: 2025-05-29 19:24:14
+================================
+- 8" white Bread sandwich (Toasted) | Meats: Steak | Cheeses: American Cheese | Toppings: Peppers | Sauce: Mayo | $10.50 | 285 cal
+  $15.00 | 690 cal
+- A refreshing Cola drink in size Large
+  $15.00 | 690 cal
+- Crunchy Salt & Vinegar flavored chips.
+  $15.00 | 690 cal
+================================
+Total: $15.00
+Total Calories: 690 cal
+Thank you for dining with us!
