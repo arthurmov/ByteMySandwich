@@ -249,7 +249,6 @@ public class UserInterface {
         if (confirm == 1) {
             FileManager.saveReceiptToFile(currentOrder);
             System.out.println("Order complete. Returning to home...");
-            homeScreen();
         } else {
             System.out.println("Order canceled.");
         }

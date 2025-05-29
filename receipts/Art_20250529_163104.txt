@@ -1,0 +1,7 @@
+Customer: Art
+Order Summary:
+- 12" White Bread sandwich (Toasted) | Meats: Chicken, Bacon | Cheeses: Provolone | Toppings: Lettuce, Peppers, Onions, Pickles | Sauce: Mayo | $15.25 | 462 cal
+- A refreshing Cola drink in size Large | $3.00 | 250 cal
+- Jalapeño Chips | $1.50 | 165 cal
+Total Price: $19.75
+Total Calories: 877 cal
