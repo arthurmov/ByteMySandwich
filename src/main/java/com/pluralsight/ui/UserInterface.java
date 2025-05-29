@@ -233,12 +233,24 @@ public class UserInterface {
     }
 
     private void checkoutScreen() {
-        //to do... display order details and price
+        System.out.println("Your order:");
+        for (Object item : currentOrder.getOrderItems()) {
+            System.out.println("- " + item.toString());
+        }
 
-        //to do... confirm - create receipt file and go back to home screen
+        System.out.println("Total: $" + currentOrder.calculateTotal());
 
-        //to do... cancel - delete order and go back to home screen
+        int confirm = console.promptForInt("Confirm checkout? [1] Yes [2] Cancel: ");
+        if (confirm == 1) {
+            FileManager.saveReceiptToFile(currentOrder);
+            System.out.println("Order complete. Returning to home...");
+            homeScreen();
+        } else {
+            System.out.println("Order canceled.");
+            homeScreen();
+        }
     }
+
 
 }
 
