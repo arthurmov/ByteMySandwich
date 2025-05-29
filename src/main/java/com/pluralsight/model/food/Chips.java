@@ -65,4 +65,9 @@ public class Chips implements Priceable, Caloric, MenuItem, Flavored {
     public String getMenuCategory() {
         return "Chips";
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s Chips | $%.2f | %d cal", flavor, getValue(), getCalories());
+    }
 }

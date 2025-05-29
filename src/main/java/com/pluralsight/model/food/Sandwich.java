@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     private Bread bread;
     private List<PremiumTopping> meatsAndCheeses;
@@ -26,7 +25,6 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
         this.toppings = new ArrayList<>();
         this.isToasted = false;
     }
-
 
     public Bread getBread() {
         return bread;
@@ -80,33 +78,32 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
         double basePrice;
 
         switch (size.getName()) {
-            case "4\"":
-                basePrice = 5.50;
-                break;
-            case "8\"":
-                basePrice = 7.00;
-                break;
-            case "12\"":
-                basePrice = 8.50;
-                break;
-            default:
-                basePrice = 0;
-                break;
+            case "4\"": basePrice = 5.50; break;
+            case "8\"": basePrice = 7.00; break;
+            case "12\"": basePrice = 8.50; break;
+            default: basePrice = 0.0; break;
         }
 
-        List<PremiumTopping> meats = meatsAndCheeses.stream()
-                .filter(t -> t.getMenuCategory().equalsIgnoreCase("Meat"))
-                .toList();
+        int meatCount = (int) meatsAndCheeses.stream()
+                .filter(m -> m.getMenuCategory().equalsIgnoreCase("Meat")).count();
 
-        List<PremiumTopping> cheeses = meatsAndCheeses.stream()
-                .filter(t -> t.getMenuCategory().equalsIgnoreCase("Cheese"))
-                .toList();
+        int cheeseCount = (int) meatsAndCheeses.stream()
+                .filter(m -> m.getMenuCategory().equalsIgnoreCase("Cheese")).count();
 
-        double meatCost = !meats.isEmpty() ? 1.00 + (meats.size() - 1) * getExtraMeatPrice(size.getName()) : 0;
-        double cheeseCost = !cheeses.isEmpty() ? 0.75 + (cheeses.size() - 1) * getExtraCheesePrice(size.getName()) : 0;
+        double meatCost = 0;
+        double cheeseCost = 0;
+
+        if (meatCount > 0) {
+            meatCost += 1.00 + (meatCount - 1) * getExtraMeatPrice(size.getName());
+        }
+
+        if (cheeseCount > 0) {
+            cheeseCost += 0.75 + (cheeseCount - 1) * getExtraCheesePrice(size.getName());
+        }
 
         return basePrice + meatCost + cheeseCost;
     }
+
 
     private double getExtraMeatPrice(String size) {
         double price = 0.0;
@@ -150,7 +147,6 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
         return price;
     }
 
-
     @Override
     public int getCalories() {
         int total = 0;
@@ -175,11 +171,34 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
 
     @Override
     public String getDescription() {
-        return size.getName() + " " + bread.getType() + " sandwich" +
-                (isToasted ? " (Toasted)" : "") +
-                " with " + meatsAndCheeses.size() + " meat/cheese items, " +
-                toppings.size() + " toppings, and " + sauce.getTypeOfSauce() + " sauce.";
+        StringBuilder desc = new StringBuilder();
+
+        desc.append("- ").append(size.getName()).append(" ").append(bread.getMenuName()).append(" sandwich");
+        desc.append(isToasted ? " (Toasted)" : " (Not Toasted)");
+
+        List<String> meats = new ArrayList<>();
+        List<String> cheeses = new ArrayList<>();
+        for (PremiumTopping pt : meatsAndCheeses) {
+            if (pt.getMenuCategory().equalsIgnoreCase("Meat")) meats.add(pt.getMenuName());
+            else if (pt.getMenuCategory().equalsIgnoreCase("Cheese")) cheeses.add(pt.getMenuName());
+        }
+
+        if (!meats.isEmpty()) desc.append(" | Meats: ").append(String.join(", ", meats));
+        if (!cheeses.isEmpty()) desc.append(" | Cheeses: ").append(String.join(", ", cheeses));
+
+        if (!toppings.isEmpty()) {
+            desc.append(" | Toppings: ");
+            desc.append(toppings.stream()
+                    .map(MenuItem::getMenuName)
+                    .collect(Collectors.joining(", ")));
+        }
+
+        if (sauce != null) desc.append(" | Sauce: ").append(sauce.getMenuName());
+
+        desc.append(String.format(" | $%.2f | %d cal", getValue(), getCalories()));
+        return desc.toString();
     }
+
 
     @Override
     public String getMenuCategory() {

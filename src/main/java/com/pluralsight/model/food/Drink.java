@@ -1,15 +1,12 @@
 package com.pluralsight.model.food;
 
-import com.pluralsight.model.interfaces.Caloric;
-import com.pluralsight.model.interfaces.Flavored;
-import com.pluralsight.model.interfaces.MenuItem;
-import com.pluralsight.model.interfaces.Priceable;
+import com.pluralsight.model.interfaces.*;
 import com.pluralsight.model.food.components.Size;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Drink implements Priceable, Caloric, MenuItem, Flavored {
+public class Drink implements Priceable, Caloric, MenuItem, Flavored, Sizeable {
     private Size size;
     private String flavor;
 
@@ -41,18 +38,29 @@ public class Drink implements Priceable, Caloric, MenuItem, Flavored {
 
     @Override
     public double getValue() {
-        return 1.50 * size.getPriceMultiplier();
+        switch (size.getName().toLowerCase()) {
+            case "small":
+                return 2.00;
+            case "medium":
+                return 2.50;
+            case "large":
+                return 3.00;
+            default:
+                return 0.0;
+        }
     }
 
     @Override
     public int getCalories() {
-        // Basic example – you can customize per flavor later
         switch (flavor.toLowerCase()) {
             case "cola":
+                return 250;
             case "root beer":
+                return 300;
             case "orange":
                 return (int) (150 * size.getPriceMultiplier());
             case "lemon-lime":
+                return 165;
             case "iced tea":
                 return (int) (120 * size.getPriceMultiplier());
             case "water":
@@ -76,4 +84,10 @@ public class Drink implements Priceable, Caloric, MenuItem, Flavored {
     public String getMenuCategory() {
         return "Drink";
     }
+
+    @Override
+    public String toString() {
+        return getDescription() + String.format(" | $%.2f | %d cal", getValue(), getCalories());
+    }
+
 }

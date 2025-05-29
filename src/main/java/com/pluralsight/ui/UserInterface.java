@@ -47,7 +47,7 @@ public class UserInterface {
     }
 
     private void orderScreen() {
-        String name = console.promptForString("Enter your name for the order: ");
+        String name = console.promptForString("Enter your name for the order: \n");
         Customer customer = new Customer(name);
         currentOrder = new Order(customer);
 
@@ -108,7 +108,7 @@ public class UserInterface {
         Bread selectedBread = breads.get(breadIndex);
 
         //select size
-        List<Size> sizes = Size.getStandardSizes();
+        List<Size> sizes = Size.getSandwichSizes();
         for (int i = 0; i < sizes.size(); i++) {
             System.out.println("[" + (i + 1) + "] " + sizes.get(i).getName());
         }
@@ -161,7 +161,8 @@ public class UserInterface {
                 System.out.println("[" + (i + 1) + "] " + regularToppings.get(i).getMenuName());
             }
             int input = console.promptForInt("Choose topping: ");
-            if (input == 0) break;
+            if (input == 0)
+                break;
             selectedRegular.add(regularToppings.get(input - 1));
         }
 
@@ -199,10 +200,11 @@ public class UserInterface {
 
     private void addDrinkScreen() {
         System.out.println("Select your drink size:");
-        List<Size> sizes = Size.getStandardSizes();
+        List<Size> sizes = Size.getDrinkSizes();
         for (int i = 0; i < sizes.size(); i++) {
             System.out.println("[" + (i + 1) + "] " + sizes.get(i).getName());
         }
+
         int sizeIndex = console.promptForInt("Choice: ") - 1;
         Size size = sizes.get(sizeIndex);
 
@@ -248,7 +250,6 @@ public class UserInterface {
             homeScreen();
         } else {
             System.out.println("Order canceled.");
-            homeScreen();
         }
     }
 }
