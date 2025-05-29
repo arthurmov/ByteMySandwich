@@ -79,12 +79,14 @@ public class Sandwich implements Priceable, Sizeable, Caloric, MenuItem {
     @Override
     public double getValue() {
         double total = 0;
-        total += bread.getPrice();
-        total += size.getPriceMultiplier();
 
         for (PremiumTopping pt : meatsAndCheeses) {
             total += pt.getValue();
         }
+
+        if (size != null)
+            total *= size.getPriceMultiplier();
+
         return total;
     }
 
