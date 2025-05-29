@@ -59,13 +59,18 @@ public class Sauce extends Topping {
     }
 
     @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
     public int getCalories() {
         return calories;
     }
 
     @Override
     public String getMenuName() {
-        return getTypeOfSauce();
+        return getName();
     }
 
     @Override
