@@ -118,19 +118,39 @@ public class UserInterface {
             return;
         }
         Size selectedSize = sizes.get(sizeIndex);
-        
+
         //add premium toppings
         List<PremiumTopping> premiumToppings = PremiumTopping.getPremiumToppings();
         List<PremiumTopping> selectedPremium = new ArrayList<>();
-        System.out.println("Select premium toppings (0 to finish):");
+
+        System.out.println("Select meats (0 to finish):");
         while (true) {
             for (int i = 0; i < premiumToppings.size(); i++) {
-                System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName());
+                String name = premiumToppings.get(i).getName().toLowerCase();
+                if (name.equals("steak") || name.equals("ham") || name.equals("salami") ||
+                        name.equals("roast beef") || name.equals("chicken") || name.equals("bacon")) {
+                    System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName());
+                }
             }
-            int input = console.promptForInt("Choose topping: ");
+            int input = console.promptForInt("Choose a meat: ");
             if (input == 0) break;
             selectedPremium.add(premiumToppings.get(input - 1));
         }
+
+        System.out.println("Select cheeses (0 to finish):");
+        while (true) {
+            for (int i = 0; i < premiumToppings.size(); i++) {
+                String name = premiumToppings.get(i).getName().toLowerCase();
+                if (name.equals("american") || name.equals("provolone") ||
+                        name.equals("cheddar") || name.equals("swiss")) {
+                    System.out.println("[" + (i + 1) + "] " + premiumToppings.get(i).getMenuName());
+                }
+            }
+            int input = console.promptForInt("Choose a cheese: ");
+            if (input == 0) break;
+            selectedPremium.add(premiumToppings.get(input - 1));
+        }
+
 
         //add regular toppings
         List<RegularTopping> regularToppings = RegularTopping.getRegularToppings();
@@ -150,7 +170,12 @@ public class UserInterface {
         for (int i = 0; i < sauces.size(); i++) {
             System.out.println("[" + (i + 1) + "] " + sauces.get(i).getMenuName());
         }
-        int sauceIndex = console.promptForInt("Choose a sauce: ") - 1;
+        int sauceIndex;
+        while (true) {
+            sauceIndex = console.promptForInt("Choose a sauce (1-" + sauces.size() + "): ") - 1;
+            if (sauceIndex >= 0 && sauceIndex < sauces.size()) break;
+            System.out.println("Invalid choice, try again.");
+        }
         Sauce selectedSauce = sauces.get(sauceIndex);
 
         //toasted
@@ -195,10 +220,18 @@ public class UserInterface {
     }
 
     private void addChipsScreen() {
-        // to do... user confirmation
+        System.out.println("Select your chips:");
+        List<String> flavors = new Chips("").getAvailableFlavors();
+        for (int i = 0; i < flavors.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + flavors.get(i));
+        }
+        int choice = console.promptForInt("Choose a flavor: ") - 1;
+        Chips chips = new Chips(flavors.get(choice));
+        currentOrder.addChips(chips);
 
-        // to do... select chip type
+        System.out.println("Chips added to your order.\n");
     }
+
     private void checkoutScreen() {
         //to do... display order details and price
 
