@@ -18,7 +18,7 @@ public class Console {
                 hasResult = true;
 
             } catch (Exception e) {
-                System.out.println(ColorCodes.RED +"Not a valid option, please try again"+ ColorCodes.RESET);
+                System.out.println(ColorCodes.RED +"Not a valid option, please enter a valid int"+ ColorCodes.RESET);
                 scanner.next();
 
 
