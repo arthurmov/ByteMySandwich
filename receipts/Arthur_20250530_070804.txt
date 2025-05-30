@@ -1,0 +1,15 @@
+======= Byte My Sandwich =======
+Customer: Arthur
+Order #: 1001
+Date: 2025-05-30 07:08:04
+================================
+- 8" White Bread sandwich (Toasted) | Meats: Chicken, Bacon | Toppings: Lettuce, Peppers, Onions | Sauce: Mayo | $10.00 | 985 cal
+  $10.00 | 985 cal
+- A refreshing Orange drink in size Medium
+  $2.50 | 225 cal
+- Crunchy Salt & Vinegar flavored chips.
+  $1.50 | 155 cal
+================================
+Total: $14.00
+Total Calories: 1365 cal
+Thank you for dining with us!

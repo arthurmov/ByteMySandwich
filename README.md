@@ -30,6 +30,18 @@ The project emphasizes **Object-Oriented Programming** (OOP) using inheritance, 
 
 ### 📸 Screenshots
 
+#### Main Menu
+![Main Menu](screenshots/mainmenu.png)
+
+#### Add Sandwich Screen
+![Add Sandwich](screenshots/addsandwich.png)
+
+#### Checkout Summary
+![Checkout](screenshots/checkout.png)
+
+#### Receipt Output
+![Receipt](screenshots/receipt.png)
+
 ---
 
 ### 🧠 Interesting Piece of Code
