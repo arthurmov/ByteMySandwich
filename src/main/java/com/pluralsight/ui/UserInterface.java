@@ -21,13 +21,13 @@ public class UserInterface {
         //loop to keep the menu running
         while (true) {
             String homeScreenPrompt = ColorCodes.BRIGHT_YELLOW + """
-                    ══════════════════════════════════════════════
-                                    MAIN MENU 🍔
-                    ══════════════════════════════════════════════
-                    """ + ColorCodes.RESET
-                    + ColorCodes.BRIGHT_YELLOW + " [1] " + ColorCodes.RESET + "🧾 Start a New Order\n"
-                    + ColorCodes.BRIGHT_YELLOW + " [0] " + ColorCodes.RESET + "❌ Exit the Application\n\n"
-                    + "Please select an option:\n";
+                            ══════════════════════════════════════════════
+                                             MAIN MENU 🍔
+                            ══════════════════════════════════════════════
+                            """ + ColorCodes.RESET
+                            + ColorCodes.BRIGHT_YELLOW + " [1] " + ColorCodes.RESET + "🧾 Start a New Order\n"
+                            + ColorCodes.BRIGHT_YELLOW + " [0] " + ColorCodes.RESET + "❌ Exit the Application\n\n"
+                            + "👉 Please select an option: ";
 
 
 
@@ -41,23 +41,25 @@ public class UserInterface {
                     orderScreen();
                     break;
                 case 0:
-                    System.out.println(ColorCodes.BRIGHT_YELLOW + "👋 Goodbye ! Thanks for visiting Byte My Sandwich." + ColorCodes.RESET);
+                    System.out.println(ColorCodes.BRIGHT_YELLOW + "\n👋 Goodbye ! Thanks for visiting Byte My Sandwich." + ColorCodes.RESET);
                     return;
                 default:
-                    System.out.println(ColorCodes.RED + "Invalid command, please try again." + ColorCodes.RESET);
+                    System.out.println(ColorCodes.RED + "❌ Invalid command, please try again." + ColorCodes.RESET);
             }
         }
     }
 
     private void orderScreen() {
-        System.out.println(ColorCodes.BRIGHT_YELLOW + "══════════════════════════════════════════════");
-        System.out.println("               👤 CUSTOMER INFO");
-        System.out.println("══════════════════════════════════════════════" + ColorCodes.RESET);
+        System.out.println(ColorCodes.BRIGHT_YELLOW + """
+                            ══════════════════════════════════════════════
+                                          👤 CUSTOMER INFO
+                            ══════════════════════════════════════════════
+                            """ + ColorCodes.RESET);
 
         String name = console.promptForString("Please enter your name for the order: ");
         Customer customer = new Customer(name);
 
-        System.out.printf("\n\uD83C\uDF89 Welcome, %s! Let's start your order.\n", name);
+        System.out.printf("\n\uD83C\uDF89 Welcome, %s! Let's start your order.\n\n", name);
 
         currentOrder = new Order(customer);
 
@@ -76,7 +78,7 @@ public class UserInterface {
                             ColorCodes.BRIGHT_YELLOW + " [3] " + ColorCodes.RESET + "🍟  Add Chips\n" +
                             ColorCodes.BRIGHT_YELLOW + " [4] " + ColorCodes.RESET + "💵  Proceed to Checkout\n" +
                             ColorCodes.BRIGHT_YELLOW + " [0] " + ColorCodes.RESET + "❌  Cancel Order (Return to Home)\n\n" +
-                            "Please select an option:\n";
+                            "👉 Please select an option: ";
 
 
             //handles user input
@@ -94,7 +96,11 @@ public class UserInterface {
                     addChipsScreen();
                     break;
                 case 4:
-                    checkoutScreen();
+                    if (currentOrder == null || currentOrder.getOrderItems().isEmpty()) {
+                        System.out.println(ColorCodes.RED + "❌ No items in the order. Please add something before checkout.\n" + ColorCodes.RESET);
+                    } else {
+                        checkoutScreen();
+                    }
                     break;
                 case 0:
                     System.out.println(ColorCodes.BRIGHT_YELLOW + "Returning to Main Menu...\n" + ColorCodes.RESET);
@@ -106,12 +112,16 @@ public class UserInterface {
     }
 
     private void addSandwichScreen() {
-        System.out.println("\n🥪 Let's build your sandwich!");
+        System.out.println(ColorCodes.BRIGHT_YELLOW + """
+                            ══════════════════════════════════════════════
+                                          🥪 BUILD YOUR SANDWICH
+                            ══════════════════════════════════════════════
+                            """ + ColorCodes.RESET);
 
-        int customOrSignature = console.promptForInt("""
-                [1] Custom Sandwich
-                [2] Signature Sandwich
-                """);
+        int customOrSignature = console.promptForInt(ColorCodes.BRIGHT_YELLOW + """
+         [1] """ + ColorCodes.RESET + " Custom Sandwich\n" +
+                ColorCodes.BRIGHT_YELLOW + "[2] " + ColorCodes.RESET + "Signature Sandwich\n\n" +
+                "👉 Please select an option: ");
 
         if(customOrSignature == 1) {
 
@@ -121,7 +131,7 @@ public class UserInterface {
             for (int i = 0; i < breads.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + breads.get(i).getMenuName());
             }
-            int breadIndex = console.promptForInt("Enter choice: ") - 1;
+            int breadIndex = console.promptForInt("👉 Enter choice: ") - 1;
             Bread selectedBread = breads.get(breadIndex);
 
             //select size
@@ -129,14 +139,14 @@ public class UserInterface {
             for (int i = 0; i < sizes.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + sizes.get(i).getName());
             }
-            int sizeIndex = console.promptForInt("\n📏 Select sandwich size:") - 1;
+            int sizeIndex = console.promptForInt("\n📏 Select sandwich size: ") - 1;
             if (sizeIndex < 0 || sizeIndex >= sizes.size()) {
                 System.out.println(ColorCodes.RED + "❌ Invalid selection. Returning to previous menu." + ColorCodes.RESET);
                 return;
             }
             Size selectedSize = sizes.get(sizeIndex);
 
-            System.out.println("Select premium toppings (Meats & Cheeses). These cost extra. Enter 0 to finish:");
+            System.out.println("Select premium toppings (Meats & Cheeses). These cost extra. Enter 0 to finish: ");
 
             List<PremiumTopping> premiumToppings = PremiumTopping.getPremiumToppings();
             List<PremiumTopping> selectedPremium = new ArrayList<>();
@@ -174,15 +184,22 @@ public class UserInterface {
             //add regular toppings
             List<RegularTopping> regularToppings = RegularTopping.getRegularToppings();
             List<RegularTopping> selectedRegular = new ArrayList<>();
-            System.out.println("Select regular toppings (0 to finish):");
+
+            System.out.println("\n🥬 Select regular toppings (Enter 0 to finish):");
+            for (int i = 0; i < regularToppings.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + regularToppings.get(i).getMenuName());
+            }
+
             while (true) {
-                for (int i = 0; i < regularToppings.size(); i++) {
-                    System.out.println("[" + (i + 1) + "] " + regularToppings.get(i).getMenuName());
+                int input = console.promptForInt("👉 Choose topping: ");
+                if (input == 0) break;
+                if (input >= 1 && input <= regularToppings.size()) {
+                    RegularTopping chosen = regularToppings.get(input - 1);
+                    selectedRegular.add(chosen);
+                    System.out.println("✔️ Added: " + chosen.getMenuName());
+                } else {
+                    System.out.println(ColorCodes.RED + "❌ Invalid selection. Try again." + ColorCodes.RESET);
                 }
-                int input = console.promptForInt("Choose topping: ");
-                if (input == 0)
-                    break;
-                selectedRegular.add(regularToppings.get(input - 1));
             }
 
             //choose sauce
@@ -216,24 +233,21 @@ public class UserInterface {
 
             System.out.println(ColorCodes.GREEN + "✅ Sandwich added to your order.\n" + ColorCodes.RESET);
         } else {
-            int signatureSandwichType = console.promptForInt("""
-                    [1] BLT
-                    [2] Philly Cheesesteak
-                    """);
+            int sig = console.promptForInt(ColorCodes.BRIGHT_YELLOW + """
+             [1] """ + ColorCodes.RESET + " BLT\n" +
+                    ColorCodes.BRIGHT_YELLOW + "[2] " + ColorCodes.RESET + "Philly Cheesesteak\n\n" +
+                    "👉 Please select a signature sandwich: ");
 
-            switch (signatureSandwichType) {
-                case 1:
-                    currentOrder.addSandwich(new BLT());
-                    System.out.println(ColorCodes.GREEN + "✅ Sandwich added to your order.\n" + ColorCodes.RESET);
-                    break;
-                case 2:
-                    currentOrder.addSandwich(new PhillyCheeseSteak());
-                    System.out.println(ColorCodes.GREEN + "✅ Sandwich added to your order.\n" + ColorCodes.RESET);
-                    break;
-                default:
+            switch (sig) {
+                case 1 -> currentOrder.addSandwich(new BLT());
+                case 2 -> currentOrder.addSandwich(new PhillyCheeseSteak());
+                default -> {
                     System.out.println(ColorCodes.RED + "❌ Invalid option, please try again." + ColorCodes.RESET);
-                    break;
+                    return;
+                }
             }
+
+            System.out.println(ColorCodes.GREEN + "✅ Sandwich added to your order.\n" + ColorCodes.RESET);
         }
     }
 
@@ -262,7 +276,7 @@ public class UserInterface {
 
         int flavorIndex;
         while (true) {
-            flavorIndex = console.promptForInt("Choose a flavor: ") - 1;
+            flavorIndex = console.promptForInt("👉 Choose a flavor: ") - 1;
             if (flavorIndex >= 0 && flavorIndex < flavors.size()) {
                 break;
             }
@@ -313,15 +327,24 @@ public class UserInterface {
         System.out.printf("💵 Total: $%.2f\n", currentOrder.calculateTotal());
         System.out.printf("🔥 Calories: %d cal\n", currentOrder.getTotalCalories());
 
-        int confirm = console.promptForInt("\n✅ Confirm checkout? [1] Yes [2] Cancel: ");
+        int confirm;
+        while (true) {
+            confirm = console.promptForInt(
+                    "\n✅ Confirm checkout? " +
+                            ColorCodes.BRIGHT_YELLOW + "[1]" + ColorCodes.RESET + " Yes  " +
+                            ColorCodes.BRIGHT_YELLOW + "[2]" + ColorCodes.RESET + " Cancel: "
+            );
+            if (confirm == 1 || confirm == 2) break;
+            System.out.println(ColorCodes.RED + "❌ Invalid input. Please enter 1 or 2." + ColorCodes.RESET);
+        }
+
         if (confirm == 1) {
             FileManager.saveReceiptToFile(currentOrder);
             System.out.println(ColorCodes.GREEN + "🎉 Order complete. Returning to home..." + ColorCodes.RESET);
+            currentOrder = null; // clear order after saving
         } else {
             System.out.println(ColorCodes.RED + "❌ Order canceled." + ColorCodes.RESET);
+            currentOrder = null;
         }
     }
-
 }
-
-
