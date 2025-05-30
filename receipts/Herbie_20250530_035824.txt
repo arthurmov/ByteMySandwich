@@ -1,0 +1,11 @@
+======= Byte My Sandwich =======
+Customer: Herbie
+Order #: 1006
+Date: 2025-05-30 03:58:24
+================================
+- 12" Rye Bread sandwich (Toasted) | Meats: Roast Beef, Chicken | Cheeses: Cheddar | Toppings: Guacamole, Tomatoes, Peppers | Sauce: Vinaigrette | $15.25 | 1670 cal
+  $15.25 | 1670 cal
+================================
+Total: $15.25
+Total Calories: 1670 cal
+Thank you for dining with us!

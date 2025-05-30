@@ -1,0 +1,11 @@
+======= Byte My Sandwich =======
+Customer: Jordan
+Order #: 1007
+Date: 2025-05-30 04:05:43
+================================
+- A refreshing Iced Tea drink in size Large
+  $3.00 | 240 cal
+================================
+Total: $3.00
+Total Calories: 240 cal
+Thank you for dining with us!

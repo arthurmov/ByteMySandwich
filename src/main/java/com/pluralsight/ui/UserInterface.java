@@ -386,9 +386,11 @@ public class UserInterface {
         }
 
         if (confirm == 1) {
+            currentOrder.finalizeOrder();
             FileManager.saveReceiptToFile(currentOrder);
-            System.out.println(ColorCodes.GREEN + "🎉 Order complete. Returning to home..." + ColorCodes.RESET);
+            System.out.println(ColorCodes.GREEN + "\n🎉 Order complete. Returning to home...\n" + ColorCodes.RESET);
             currentOrder = null; // clear order after saving
+            homeScreen();
         } else {
             System.out.println(ColorCodes.RED + "❌ Order canceled." + ColorCodes.RESET);
             currentOrder = null;

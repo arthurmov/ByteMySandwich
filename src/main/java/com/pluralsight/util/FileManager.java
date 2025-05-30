@@ -25,7 +25,7 @@ public class FileManager {
         try (FileWriter writer = new FileWriter(fileName)) {
             writer.write("======= Byte My Sandwich =======\n");
             writer.write("Customer: " + order.getCustomer().getName() + "\n");
-            writer.write("Order #: " + order.generateOrderNumber() + "\n");
+            writer.write("Order #: " + order.getOrderNumber() + "\n");
             writer.write("Date: " + order.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
             writer.write("================================\n");
 

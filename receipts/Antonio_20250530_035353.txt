@@ -1,0 +1,17 @@
+======= Byte My Sandwich =======
+Customer: Antonio
+Order #: 1003
+Date: 2025-05-30 03:53:53
+================================
+- 8" Rye Bread sandwich (Toasted) | Meats: Salami, Roast Beef | Cheeses: Swiss | Toppings: Lettuce, Peppers, Onions | Sauce: Ranch | $11.50 | 1248 cal
+  $11.50 | 1248 cal
+- 8" White Bread sandwich (Toasted) | Meats: Steak | Cheeses: American Cheese | Toppings: Peppers | Sauce: Mayo | $10.50 | 877 cal
+  $10.50 | 877 cal
+- A refreshing Root Beer drink in size Medium
+  $2.50 | 450 cal
+- Crunchy Barbecue flavored chips.
+  $1.50 | 160 cal
+================================
+Total: $26.00
+Total Calories: 2735 cal
+Thank you for dining with us!

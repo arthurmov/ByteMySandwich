@@ -20,9 +20,7 @@ public class Order {
     public Order(Customer customer) {
         this.orderItems = new ArrayList<>();
         this.totalPrice = 0.00;
-        LocalDateTime timestamp = LocalDateTime.now();
         this.customer = customer;
-        this.orderNumber = generateOrderNumber();
     }
 
     public List<Object> getOrderItems() {
@@ -44,6 +42,15 @@ public class Order {
     public int generateOrderNumber() {
         return ++lastOrderNumber;
     }
+
+    public void finalizeOrder() {
+        this.orderNumber = generateOrderNumber();
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
 
     public LocalDateTime getTimestamp() {
         return LocalDateTime.now();

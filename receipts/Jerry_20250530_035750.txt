@@ -1,0 +1,13 @@
+======= Byte My Sandwich =======
+Customer: Jerry
+Order #: 1005
+Date: 2025-05-30 03:57:50
+================================
+- 8" White Bread sandwich (Toasted) | Meats: Steak | Cheeses: American Cheese | Toppings: Peppers | Sauce: Mayo | $10.50 | 877 cal
+  $10.50 | 877 cal
+- Crunchy Jalapeño flavored chips.
+  $1.50 | 165 cal
+================================
+Total: $12.00
+Total Calories: 1042 cal
+Thank you for dining with us!
