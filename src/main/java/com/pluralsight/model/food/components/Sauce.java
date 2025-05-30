@@ -9,20 +9,20 @@ public class Sauce extends Topping {
     private String typeOfSauce;
     private int calories;
 
-    public Sauce(String name) {
+    public Sauce(String name, int calories) {
         super(name);
-        this.calories = estimateCalories(name);
+        this.calories = calories;
     }
 
     public static List<Sauce> getSauces() {
         List<Sauce> sauces = new ArrayList<>();
 
-        sauces.add(new Sauce("Mayo"));
-        sauces.add(new Sauce("Mustard"));
-        sauces.add(new Sauce("Ketchup"));
-        sauces.add(new Sauce("Ranch"));
-        sauces.add(new Sauce("Thousand Islands"));
-        sauces.add(new Sauce("Vinaigrette"));
+        sauces.add(new Sauce("Mayo", 100));
+        sauces.add(new Sauce("Mustard", 10));
+        sauces.add(new Sauce("Ketchup", 20));
+        sauces.add(new Sauce("Ranch", 110));
+        sauces.add(new Sauce("Thousand Islands", 120));
+        sauces.add(new Sauce("Vinaigrette", 80));
 
         return sauces;
     }
@@ -54,6 +54,7 @@ public class Sauce extends Topping {
 
         return cals;
     }
+
     public String getTypeOfSauce() {
         return typeOfSauce;
     }

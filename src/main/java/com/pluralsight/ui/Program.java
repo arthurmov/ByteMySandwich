@@ -13,7 +13,7 @@ public class Program {
 |___/   |_|     |_|   |___|   |_|  |_|   |_|     |___/ /_/ \\_\\ |_|\\_| |___/    \\_/\\_/   |___|  \\___| |_||_|
 """ + ColorCodes.BRIGHT_YELLOW + """
                                                                                              \s
-         Deli-cious Sandwiches\s""" + ColorCodes.RED + "|" + ColorCodes.BRIGHT_YELLOW + " Crafted with Java — Capstone Edition" + ColorCodes.RESET);
+         Deli-cious Sandwiches\s""" + ColorCodes.RED + "|" + ColorCodes.BRIGHT_YELLOW + " Crafted with Java — Capstone Edition\n" + ColorCodes.RESET);
 
 
         UserInterface ui = new UserInterface();

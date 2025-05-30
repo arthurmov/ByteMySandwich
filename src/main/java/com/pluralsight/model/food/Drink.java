@@ -52,21 +52,23 @@ public class Drink implements Priceable, Caloric, MenuItem, Flavored, Sizeable {
 
     @Override
     public int getCalories() {
+        double multiplier = size.getCalorieMultiplier();
+
         switch (flavor.toLowerCase()) {
             case "cola":
-                return 250;
+                return (int) (250 * multiplier);
             case "root beer":
-                return 300;
+                return (int) (300 * multiplier);
             case "orange":
-                return (int) (150 * size.getPriceMultiplier());
+                return (int) (150 * multiplier);
             case "lemon-lime":
-                return 165;
+                return (int) (165 * multiplier);
             case "iced tea":
-                return (int) (120 * size.getPriceMultiplier());
+                return (int) (120 * multiplier);
             case "water":
                 return 0;
             default:
-                return 100;
+                return (int) (100 * multiplier);
         }
     }
 

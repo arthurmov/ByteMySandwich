@@ -9,10 +9,10 @@ import java.util.List;
 
 public class BLT extends Sandwich {
     public BLT() {
-        setSize(new Size("8\"", 1.0));
-        setBread(new Bread("White"));
+        setSize(new Size("8\"", 1.0, 1.5));
+        setBread(new Bread("White", 150));
         setToasted(true);
-        setSauce(new Sauce("Ranch"));
+        setSauce(new Sauce("Ranch", 110));
 
         List<PremiumTopping> meatsAndCheeses = new ArrayList<>();
         meatsAndCheeses.add(new PremiumTopping("Bacon", 1));

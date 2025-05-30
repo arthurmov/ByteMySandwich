@@ -10,9 +10,11 @@ import java.util.List;
 public class Bread implements Priceable, Caloric, MenuItem {
     private String typeOfBread;
     private double price;
+    private int calories;
 
-    public Bread(String type) {
+    public Bread(String type, int calories) {
         this.typeOfBread = type;
+        this.calories = calories;
     }
 
     public String getType() {
@@ -23,28 +25,12 @@ public class Bread implements Priceable, Caloric, MenuItem {
         return price;
     }
 
-    private int estimateCalories(String type) {
-        type = type.toLowerCase();
-        switch (type) {
-            case "white":
-                return 150;
-            case "wheat":
-                return 140;
-            case "rye":
-                return 160;
-            case "wrap":
-                return 180;
-            default:
-                return 0;
-        }
-    }
-
     public static List<Bread> getAvailableBreads() {
         List<Bread> breads = new ArrayList<>();
-        breads.add(new Bread("White"));
-        breads.add(new Bread("Wheat"));
-        breads.add(new Bread("Rye"));
-        breads.add(new Bread("Wrap"));
+        breads.add(new Bread("White", 150));
+        breads.add(new Bread("Wheat", 140));
+        breads.add(new Bread("Rye", 160));
+        breads.add(new Bread("Wrap", 180));
         return breads;
     }
 
@@ -55,7 +41,7 @@ public class Bread implements Priceable, Caloric, MenuItem {
 
     @Override
     public int getCalories() {
-        return 0;
+        return calories;
     }
 
     @Override

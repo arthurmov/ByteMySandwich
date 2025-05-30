@@ -9,9 +9,9 @@ import java.util.List;
 
 public class PhillyCheeseSteak extends Sandwich {
     public PhillyCheeseSteak() {
-        setSize(new Size("8\"", 1));
-        setBread(new Bread("white"));
-        setSauce(new Sauce("Mayo"));
+        setSize(new Size("8\"", 1, 1.5));
+        setBread(new Bread("White", 150));
+        setSauce(new Sauce("Mayo", 100));
         setToasted(true);
 
         List<PremiumTopping> meatsAndCheeses = new ArrayList<>();
