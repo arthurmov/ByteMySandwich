@@ -25,22 +25,23 @@ The project emphasizes **Object-Oriented Programming** (OOP) using inheritance, 
 ---
 
 ### 🧩 UML Class Diagram
+![UML Diagram](images/uml.png)
 
 ---
 
 ### 📸 Screenshots
 
 #### Main Menu
-![Main Menu](screenshots/mainmenu.png)
+![Main Menu](images/mainmenu.png)
 
 #### Add Sandwich Screen
-![Add Sandwich](screenshots/addsandwich.png)
+![Add Sandwich](images/addsandwich.png)
 
 #### Checkout Summary
-![Checkout](screenshots/checkout.png)
+![Checkout](images/checkout.png)
 
 #### Receipt Output
-![Receipt](screenshots/receipt.png)
+![Receipt](images/receipt.png)
 
 ---
 
